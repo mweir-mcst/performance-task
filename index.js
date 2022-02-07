@@ -1,0 +1,1 @@
+e=require("express");e().use(e.static("public")).listen(80,()=>console.log("Ready"));

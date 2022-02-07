@@ -1,0 +1,29 @@
+{
+  "name": "performance-task",
+  "version": "0.1.0",
+  "description": "AP Performance Task 2022",
+  "main": "index.js",
+  "scripts": {
+    "start": "esbuild src/main.js --bundle > public/main.js && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mweir-mcst/performance-task.git"
+  },
+  "keywords": [
+    "performance-task"
+  ],
+  "author": "Matthew Weir <matthew.weir@mcvts.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mweir-mcst/performance-task/issues"
+  },
+  "homepage": "https://github.com/mweir-mcst/performance-task#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "kaboom": "^2000.2.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.18"
+  }
+}
