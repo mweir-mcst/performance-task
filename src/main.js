@@ -37,18 +37,14 @@ onKeyDown("d", () => {
 });
 
 onDraw(() => {
-    const indicatorPos = player.pos.add(vec2((mousePos().x - player.pos.x) * 0.1, (mousePos().y - player.pos.y) * 0.1));
+    const angle = Math.atan2(mousePos().y - player.pos.y, mousePos().x - player.pos.x);
 
-    drawCircle({
-        pos: indicatorPos,
-        radius: 10,
-        color: WHITE
+    drawTriangle({
+        p1: vec2(5, 0),
+        p2: vec2(-5, -10),
+        p3: vec2(-5, 10),
+        pos: player.pos.add(vec2(35 * Math.cos(angle), 35 * Math.sin(angle))),
+        angle: angle * 180 / Math.PI,
+        fill: true
     });
-
-    drawLine({
-        p1: player.pos,
-        p2: indicatorPos,
-        width: 4,
-        color: WHITE
-    })
 });
