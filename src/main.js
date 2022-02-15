@@ -10,32 +10,24 @@ onLoad(() => canvas.focus());
 let enemySpawn = false;
 let timeOffset = 0;
 let cancelOnDraw, cancelOnUpdate;
+let scoreHistory = getData("scoreHistory") || [];
 
 function activeTime() {
     return time() - timeOffset;
 }
 
+function addText(content, size, x, y, props = []) {
+    return add([
+        text(content, {size}),
+        pos(x, y),
+        color(WHITE),
+        opacity(0.5)
+    ].concat(props));
+}
+
 // Add the hint text in the beginning of the game
-const hint1 = add([
-    text("WASD to move", {
-        size: 50
-    }),
-    pos(center().x, center().y - 150),
-    origin("center"),
-    color(WHITE),
-    opacity(0.5),
-    stay()
-]);
-const hint2 = add([
-    text("click to shoot", {
-        size: 50
-    }),
-    pos(center().x, center().y - 100),
-    origin("center"),
-    color(WHITE),
-    opacity(0.5),
-    stay()
-]);
+const hint1 = addText("WASD to move", 50, center().x, center().y - 150, [origin("center"), stay()]);
+const hint2 = addText("click to shoot", 50, center().x, center().y - 100, [origin("center"), stay()]);
 
 scene("game", () => {
     let started = false;
@@ -54,28 +46,21 @@ scene("game", () => {
     // Draw the health bar
     function drawHealthBar(obj) {
         drawLine({
-            p1: obj.pos.sub(obj.radius, obj.radius + 20),
-            p2: obj.pos.sub(-obj.radius, obj.radius + 20),
+            p1: obj.pos.sub(obj.radius, obj.radius * 1.75),
+            p2: obj.pos.sub(-obj.radius, obj.radius * 1.75),
             width: 5,
             color: WHITE
         });
         drawLine({
-            p1: obj.pos.sub(obj.radius, obj.radius + 20),
-            p2: obj.pos.sub(-(obj.radius * 2 * obj.hp() / 10 - obj.radius), obj.radius + 20),
+            p1: obj.pos.sub(obj.radius, obj.radius * 1.75),
+            p2: obj.pos.sub(-(obj.radius * 2 * obj.hp() / 10 - obj.radius), obj.radius * 1.75),
             width: 5,
-            color: rgb(0, 100, 0)
+            color: rgb(0, 128, 0)
         });
     }
 
     // Add the time alive
-    const score = add([
-        text("time alive: 0", {
-            size: 30
-        }),
-        pos(15, 15),
-        color(WHITE),
-        opacity(0.5)
-    ]);
+    const score = addText("time alive: 0", 30, 15, 15);
 
     score.hidden = true;
 
@@ -234,25 +219,17 @@ scene("game", () => {
 
 scene("gameOver", () => {
     let timeAlive = Math.floor(activeTime());
+    scoreHistory.push(timeAlive);
     hint1.text = "game over"
     hint2.text = "time alive: " + timeAlive
     hint1.hidden = false;
     hint2.hidden = false
-    add([
-        text("press any key to restart", {
-            size: 50
-        }),
-        pos(center()),
-        origin("center"),
-        color(WHITE),
-        opacity(0.5)
-    ]);
+    addText("press space to restart", 50, center().x, center().y, [origin("center")]);
     enemySpawn = false;
     cancelOnDraw();
     cancelOnUpdate();
 
-    onKeyPress(() => go("game"));
-    onClick(() => go("game"));
+    onKeyPress("space", () => go("game"));
 });
 
 go("game");
