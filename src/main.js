@@ -63,7 +63,7 @@ scene("game", () => {
             p1: obj.pos.sub(obj.radius, obj.radius + 20),
             p2: obj.pos.sub(-(obj.radius * 2 * obj.hp() / 10 - obj.radius), obj.radius + 20),
             width: 5,
-            color: GREEN
+            color: rgb(0, 100, 0)
         });
     }
 
