@@ -4,7 +4,8 @@
   "description": "AP Performance Task 2022",
   "main": "index.js",
   "scripts": {
-    "start": "esbuild src/main.js --bundle > public/main.js && node ."
+    "build": "esbuild src/main.js --bundle > public/main.js",
+    "start": "npm run build && node ."
   },
   "repository": {
     "type": "git",
