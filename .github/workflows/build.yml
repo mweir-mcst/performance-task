@@ -22,7 +22,7 @@ jobs:
           npm run build
           cd public
           git init
-          git remote add origin "{{ github.repositoryUrl }}"
+          git remote add origin https://github.com/mweir-mcst/performance-task.git
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add .
