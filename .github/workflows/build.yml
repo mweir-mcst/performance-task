@@ -24,7 +24,7 @@ jobs:
           git init
           git remote add origin "{{ github.repositoryUrl }}"
           git config user.email "actions@github.com"
-          git conifg user.name "GitHub Actions"
+          git config user.name "GitHub Actions"
           git add .
           git commit -m "GitHub Pages" --author "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           git branch gh-pages
